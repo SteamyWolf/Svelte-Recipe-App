@@ -12,6 +12,14 @@
   import SearchRecipes from "./components/SearchRecipes.svelte";
   import NewRecipe from "./components/NewRecipe.svelte";
   import Modal from "./components/Modal.svelte"
+
+import recipeStore from "./RecipeStore";
+
+   let recipeList = []
+    recipeStore.subscribe((data) => { // keeps track of updates to the store, sends data to "grocery list which can then be looped through/displayed"
+        recipeList = data
+    })
+=======
   import recipeStore from "./RecipeStore"
 
 // ------- pulling data from store ------- //
@@ -21,18 +29,19 @@ recipeStore.subscribe((data) => {
 })
 // ------- pulling data from store ------- //
 
+
   let query;
     let foundRecipes = [];
     let user_message = false;
     let success;
     let message;
 
-    let initialRecipes = recipeData.slice(0, 6)
+    let initialRecipes = recipeList.slice(0, 10)
 
     $: {
         const handleSearch = () => {
-            console.log(recipeData);
-            let filtered = recipeData.filter(recipe => recipe.name.toLowerCase().startsWith(query))
+            console.log(recipeList);
+            let filtered = recipeList.filter(recipe => recipe.name.toLowerCase().startsWith(query))
             foundRecipes = filtered;
         }
         if (query) {
@@ -111,7 +120,7 @@ recipeStore.subscribe((data) => {
     <input class="search-input" type="text" bind:value={query}>
 <!-- popup that displays whateve recipe is passed into it-->
 <!-- modal styling can be found on Modal.svelte-->
-<Modal bind:this={modal}> 
+<Modal bind:this={modal}>
     <!-- Individual recipe card - styling can be found below -->
     <div class="modal-card">
         <img class="modal-img" src="{selectedRecipe.image}" alt="anything">
@@ -155,7 +164,7 @@ recipeStore.subscribe((data) => {
                                 <IoMdHeart />
                             {:else}
                                 <IoMdHeartEmpty />
-                            {/if}  
+                            {/if}
                         </div>
                     </div>
                 </div>
