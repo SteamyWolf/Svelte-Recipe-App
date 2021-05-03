@@ -161,13 +161,11 @@ recipeStore.subscribe((data) => {
                 <tr>
                   <th>Ingredient</th>
                   <th>Amount</th>
-                  <th>On List</th>
                 </tr>
                 {#each selectedRecipe.ingredients as ingredient, i}
                 <tr class="table-fade" on:click={() => addIndividualIngredient(selectedRecipe, i)}>
                   <td>{ingredient.name}</td>
                   <td>{ingredient.quantity} {ingredient.unit}</td>
-                <td>ingredient: {i}</td>
                 </tr>
                 {/each}
               </table>
