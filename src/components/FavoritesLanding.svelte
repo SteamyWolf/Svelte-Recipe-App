@@ -94,7 +94,7 @@
 </div>
 
 <div class="view-all">
-    <a href="#">View All</a>
+    <a href="/favorites">View All</a>
 </div>
 
 {#if user_message}

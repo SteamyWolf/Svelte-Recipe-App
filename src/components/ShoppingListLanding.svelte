@@ -2,37 +2,8 @@
     import { Container } from "sveltestrap";
     import recipeData from "../json/recipes.json";
     import _ from "lodash";
-    // console.log("recipeData--->", recipeData);
   
     export let recipeIngredients = [];
-  
-    // _.forEach(recipeData, function (value) {
-    //   console.log("value ingredients--", value.ingredients);
-    //   const isFavorite = _.get(value, "favorite");
-  
-    //   if (isFavorite) {
-    //     console.log("this is a favorite", value);
-  
-    //     _.forEach(value.ingredients, function (i) {
-  
-    //       // console.log("i------", i);
-    //       recipeIngredients.push(i);
-    //     });
-    //     recipeIngredients.sort((a,b) => {
-    //       let typeA = a.type.toUpperCase();
-    //       let typeB = b.type.toUpperCase();
-    //       if (typeA < typeB) {
-    //         return -1;
-    //       }
-    //       if (typeA > typeB) {
-    //         return 1;
-    //       }
-    //       // console.log('type--', typeA, typeB);
-    //       return 0;
-    //     })
-    //     return recipeIngredients;
-    //   }
-    // });
   
     //function adds an entire recipe to the grocery list
     function addedRecipe() {
@@ -89,33 +60,6 @@
     //function to delete all exact duplicates
     recipeIngredients = _.uniqWith(recipeIngredients, _.isEqual);
     console.log("removed duplicates", _.uniqWith(recipeIngredients, _.isEqual));
-  
-    //function to combine multiples of the same item
-    // function isEquivalent(a, b) {
-    //   // Create arrays of property names
-    //   var aProps = Object.getOwnPropertyNames(a);
-    //   var bProps = Object.getOwnPropertyNames(b);
-    //
-    //   // If number of properties is different,
-    //   // objects are not equivalent
-    //   if (aProps.length != bProps.length) {
-    //     return false;
-    //   }
-    //
-    //   for (var i = 0; i < aProps.length; i++) {
-    //     var propName = aProps[i];
-    //
-    //     // If values of same property are not equal,
-    //     // objects are not equivalent
-    //     if (a[propName] !== b[propName]) {
-    //       return false;
-    //     }
-    //   }
-    //
-    //   // If we made it this far, objects
-    //   // are considered equivalent
-    //   return true;
-    // }
   
     function addAmountsOfDuplicates(arr) { //need to put objects with same name in their own arrays together.
       const duplicateIngredients = findDuplicateNames(recipeIngredients);
@@ -205,7 +149,7 @@
   <Container>
     <div>
     <div class="section-title">Shopping List</div>
-      <form on:submit|preventDefault={addItem}>
+      <!-- <form on:submit|preventDefault={addItem}>
         <label for="name">Add an item</label>
         <div class="inputs">
           <input id="name" type="text" placeholder="name" bind:value={name} />
@@ -217,7 +161,7 @@
           />
         </div>
         <button on:submit|preventDefault={addItem}>Add </button>
-      </form>
+      </form> -->
   
       <ul>
         {#each items as item, i}

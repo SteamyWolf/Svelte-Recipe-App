@@ -97,12 +97,12 @@
 
 </script>
 <!-- looping through data in the store-->
-<h4>Ingredients found in store:</h4>
+<!-- <h4>Ingredients found in store:</h4>
 {#each groceryList as grocery}
     {#each grocery.ingredients as ingredient, i}
     <p>{ingredient.name}</p>
     {/each}
-{/each}
+{/each} -->
 
 <!-- popup that displays whateve recipe is passed into it-->
 <!-- modal styling can be found on Modal.svelte-->
