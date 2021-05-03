@@ -14,10 +14,17 @@
   import Modal from "./components/Modal.svelte"
 
 import recipeStore from "./RecipeStore";
+import groceryListStore from './store.js'
+
 
    let recipeList = []
     recipeStore.subscribe((data) => { // keeps track of updates to the store, sends data to "grocery list which can then be looped through/displayed"
         recipeList = data
+    })
+
+    let groceryList = []
+    groceryListStore.subscribe((data) => { // keeps track of updates to the store, sends data to "grocery list which can then be looped through/displayed"
+        groceryList = data
     })
 
 
@@ -34,6 +41,8 @@ recipeStore.subscribe((data) => {
     let user_message = false;
     let success;
     let message;
+    let added = false
+    let added_message = ''
 
     let initialRecipes = recipeList.slice(0, 10)
 
@@ -79,6 +88,27 @@ recipeStore.subscribe((data) => {
         selectedRecipe = recipe;
     }
     // -------------- modal end -------------- //
+
+    function addIndividualIngredient(item, i) { // adds individual ingredient object to grocery store array
+        console.log(item.ingredients[i])
+        added_message = item.ingredients[i].name
+        let groceryItem = {
+            "ingredients": [
+                {
+                    "name": item.ingredients[i].name,
+                    "unit": item.ingredients[i].unit,
+                    "quantity": item.ingredients[i].quantity,
+                    "type": item.ingredients[i].type,
+                    "onList": true
+                },
+            ]
+        }
+        $groceryListStore = [...$groceryListStore, groceryItem]
+        added = true;
+        setTimeout(() => {
+            added = false;
+        }, 3000);
+    }
 
 </script>
 
@@ -134,13 +164,18 @@ recipeStore.subscribe((data) => {
                   <th>On List</th>
                 </tr>
                 {#each selectedRecipe.ingredients as ingredient, i}
-                <tr class="table-fade">
+                <tr class="table-fade" on:click={() => addIndividualIngredient(selectedRecipe, i)}>
                   <td>{ingredient.name}</td>
                   <td>{ingredient.quantity} {ingredient.unit}</td>
                 <td>ingredient: {i}</td>
                 </tr>
                 {/each}
               </table>
+
+              {#if added}
+              <p class="green">Added {added_message} to your grocery list</p>
+              <br>
+              {/if}
 
             <div>
                 <h5>Instructions</h5>
