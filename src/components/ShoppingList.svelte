@@ -169,7 +169,6 @@
 
     <ul>
       {#each items as item}
-      <p>{item.type}</p>
         <li class:done={item.done}>
           <div class="item-name">
             <input type="checkbox" bind:checked={item.done} />
